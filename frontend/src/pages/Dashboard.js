@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "../components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "../components/ui/card";
 import { Button } from "../components/ui/button";
 import { Badge } from "../components/ui/badge";
 import {
-    Wallet, ShieldCheck, AlertTriangle, Activity, ArrowUpRight,
-    Search, Eye, Bell, BellOff, Copy, ChevronRight, RefreshCw,
-    Plus, Trash2, Shield, Database, Loader2
+    Wallet, ShieldCheck, AlertTriangle, Activity,
+    Copy, ChevronRight, RefreshCw,
+    Shield, Database, Loader2
 } from "lucide-react";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { toast } from 'sonner';
