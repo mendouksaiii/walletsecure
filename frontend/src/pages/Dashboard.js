@@ -167,7 +167,7 @@ function OverviewContent({ walletData, scanResult, isLoading }) {
                             <div className="flex items-center justify-between">
                                 <div>
                                     <CardTitle className="text-base">Security Score History</CardTitle>
-                                    <CardDescription>Score trend from recent scans</CardDescription>
+                                    <p className="text-sm text-foreground-muted">Score trend from recent scans</p>
                                 </div>
                                 <div className="flex items-center gap-4 text-xs font-mono">
                                     <span className="flex items-center gap-1.5"><span className="w-2 h-2 rounded-full bg-primary shadow-[0_0_6px_rgba(0,229,153,0.5)]" /> Score</span>
@@ -340,10 +340,10 @@ function WalletsContent({ walletData, address, isLoading, onScan }) {
                                 {/* Actions */}
                                 <div className="flex gap-2 pt-1">
                                     <Button variant="outline" size="sm" className="flex-1 text-xs gap-1.5" onClick={onScan}>
-                                        <Search className="w-3 h-3" /> Scan Now
+                                        <RefreshCw className="w-3 h-3" /> Scan Now
                                     </Button>
                                     <Button variant="outline" size="sm" className="flex-1 text-xs gap-1.5">
-                                        <Eye className="w-3 h-3" /> View
+                                        <Shield className="w-3 h-3" /> View
                                     </Button>
                                 </div>
                             </div>
