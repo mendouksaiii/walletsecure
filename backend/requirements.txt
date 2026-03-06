@@ -1,0 +1,14 @@
+fastapi==0.110.1
+uvicorn==0.25.0
+pydantic==2.12.5
+pydantic-settings==2.7.1
+motor==3.3.1
+pymongo==4.5.0
+web3==7.6.0
+eth-account==0.13.7
+PyJWT==2.11.0
+stripe==14.3.0
+slowapi==0.1.9
+httpx==0.28.1
+python-dotenv==1.2.1
+python-multipart==0.0.22

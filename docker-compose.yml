@@ -1,0 +1,42 @@
+version: "3.9"
+
+services:
+  # ===== MongoDB =====
+  mongo:
+    image: mongo:7
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    environment:
+      MONGO_INITDB_DATABASE: walletsecure
+
+  # ===== Backend API =====
+  backend:
+    build: ./backend
+    restart: unless-stopped
+    ports:
+      - "8001:8001"
+    depends_on:
+      - mongo
+    env_file:
+      - ./backend/.env
+    environment:
+      - MONGO_URL=mongodb://mongo:27017
+      - DB_NAME=walletsecure
+
+  # ===== Frontend (dev mode) =====
+  # For production, build the frontend and serve with nginx instead
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+
+volumes:
+  mongo_data:

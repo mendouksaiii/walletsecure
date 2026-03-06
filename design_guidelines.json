@@ -1,0 +1,164 @@
+{
+  "design_system": {
+    "name": "The Electric Fortress",
+    "description": "A high-contrast, futuristic Web3 security aesthetic that combines Swiss precision with Cyberpunk energy. It prioritizes trust, clarity, and vigilance.",
+    "theme": "dark",
+    "typography": {
+      "font_family": {
+        "heading": "Chivo, sans-serif",
+        "body": "Manrope, sans-serif",
+        "mono": "JetBrains Mono, monospace"
+      },
+      "scale": {
+        "h1": "text-5xl md:text-7xl font-black tracking-tighter leading-none",
+        "h2": "text-4xl md:text-5xl font-bold tracking-tight",
+        "h3": "text-2xl md:text-3xl font-bold tracking-tight",
+        "body_lg": "text-lg md:text-xl font-medium leading-relaxed",
+        "body_base": "text-base font-normal leading-relaxed text-muted-foreground",
+        "caption": "text-xs font-mono uppercase tracking-widest text-muted-foreground"
+      }
+    },
+    "colors": {
+      "background": {
+        "default": "#050505",
+        "surface": "#0A0A0A",
+        "card": "rgba(10, 10, 10, 0.6)"
+      },
+      "primary": {
+        "DEFAULT": "#00FF94",
+        "foreground": "#000000",
+        "hover": "#00CC76"
+      },
+      "secondary": {
+        "DEFAULT": "#00F0FF",
+        "foreground": "#000000"
+      },
+      "destructive": {
+        "DEFAULT": "#FF3B30",
+        "foreground": "#FFFFFF"
+      },
+      "accent": {
+        "DEFAULT": "#1A1A1A",
+        "foreground": "#FFFFFF"
+      },
+      "border": {
+        "DEFAULT": "#222222",
+        "active": "#333333"
+      },
+      "text": {
+        "heading": "#EDEDED",
+        "body": "#A1A1AA",
+        "muted": "#52525B"
+      }
+    },
+    "spacing": {
+      "container_padding": "p-6 md:p-12 lg:p-24",
+      "section_gap": "gap-12 md:gap-24",
+      "element_gap": "gap-4 md:gap-8"
+    },
+    "radius": {
+      "default": "rounded-sm",
+      "card": "rounded-lg",
+      "button": "rounded-md"
+    },
+    "shadows": {
+      "card": "0 0 0 1px rgba(255,255,255,0.05), 0 4px 24px -4px rgba(0,0,0,0.5)",
+      "glow_primary": "0 0 20px rgba(0, 255, 148, 0.3)",
+      "glow_danger": "0 0 20px rgba(255, 59, 48, 0.3)"
+    }
+  },
+  "components": {
+    "buttons": {
+      "primary": "bg-[#00FF94] text-black hover:bg-[#00CC76] font-bold rounded-md px-8 py-3 transition-all hover:shadow-[0_0_20px_rgba(0,255,148,0.4)]",
+      "secondary": "bg-transparent border border-[#333] text-white hover:border-[#00FF94] hover:text-[#00FF94] rounded-md px-8 py-3 transition-all",
+      "danger": "bg-[#FF3B30]/10 border border-[#FF3B30]/50 text-[#FF3B30] hover:bg-[#FF3B30] hover:text-white rounded-md px-6 py-2 transition-all"
+    },
+    "cards": {
+      "glass": "bg-black/40 backdrop-blur-xl border border-white/10 rounded-lg p-6 hover:border-white/20 transition-all duration-300",
+      "grid": "bg-[#0A0A0A] border border-[#222] p-6 relative overflow-hidden group hover:border-[#333] transition-colors"
+    },
+    "inputs": {
+      "default": "bg-[#0A0A0A] border border-[#222] text-white placeholder:text-zinc-600 focus:border-[#00FF94] focus:ring-1 focus:ring-[#00FF94] rounded-md h-12 px-4 transition-all"
+    },
+    "badges": {
+      "safe": "bg-[#00FF94]/10 text-[#00FF94] border border-[#00FF94]/20 px-3 py-1 rounded-full text-xs font-mono uppercase tracking-wider",
+      "risk": "bg-[#FF3B30]/10 text-[#FF3B30] border border-[#FF3B30]/20 px-3 py-1 rounded-full text-xs font-mono uppercase tracking-wider",
+      "neutral": "bg-zinc-800/50 text-zinc-400 border border-zinc-700/50 px-3 py-1 rounded-full text-xs font-mono uppercase tracking-wider"
+    }
+  },
+  "layout_strategies": {
+    "landing_page": {
+      "grid": "grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-8",
+      "hero_section": "min-h-[90vh] flex flex-col justify-center relative overflow-hidden",
+      "feature_grid": "grid grid-cols-1 md:grid-cols-3 gap-6"
+    },
+    "dashboard": {
+      "grid": "grid grid-cols-1 md:grid-cols-4 gap-6",
+      "sidebar": "hidden md:flex flex-col w-64 border-r border-[#222] bg-[#050505] h-screen sticky top-0",
+      "content": "flex-1 p-6 md:p-10 overflow-y-auto"
+    }
+  },
+  "visual_enhancers": {
+    "tracing_beam": "Use framer-motion to animate a gradient border around active cards.",
+    "scan_line": "A horizontal line scanning up and down on the 'Scanner' page (bg-gradient-to-r from-transparent via-[#00FF94] to-transparent opacity-50).",
+    "grid_background": "bg-[linear-gradient(to_right,#222_1px,transparent_1px),linear-gradient(to_bottom,#222_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]",
+    "noise_overlay": "fixed inset-0 z-50 pointer-events-none opacity-[0.03] mix-blend-overlay bg-[url('https://grainy-gradients.vercel.app/noise.svg')]"
+  },
+  "assets": {
+    "images": {
+      "hero_background": {
+        "url": "https://images.unsplash.com/photo-1755282464684-6568f7f76b5d?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1NzB8MHwxfHNlYXJjaHw0fHxibG9ja2NoYWluJTIwbmV0d29yayUyMGFic3RyYWN0JTIwZGFya3xlbnwwfHx8fDE3NzEzMjE3NDV8MA&ixlib=rb-4.1.0&q=85",
+        "alt": "Abstract geometric blockchain network with blue lighting",
+        "usage": "Hero section background with overlay"
+      },
+      "feature_infrastructure": {
+        "url": "https://images.unsplash.com/photo-1680992046626-418f7e910589?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzF8MHwxfHNlYXJjaHwyfHxzZXJ2ZXIlMjByb29tJTIwYmx1ZSUyMGxpZ2h0c3xlbnwwfHx8fDE3NzEzMjE3NjV8MA&ixlib=rb-4.1.0&q=85",
+        "alt": "Server room rack with blue lights",
+        "usage": "Infrastructure/Security section"
+      },
+      "threat_hacker": {
+        "url": "https://images.unsplash.com/photo-1585900464046-f713a61424dd?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA2ODl8MHwxfHNlYXJjaHwzfHxjeWJlciUyMHNlY3VyaXR5JTIwc2hpZWxkJTIwZ2xvd2luZ3xlbnwwfHx8fDE3NzEzMjE3NDB8MA&ixlib=rb-4.1.0&q=85",
+        "alt": "Hacker in black hoodie",
+        "usage": "Threat detection section"
+      },
+      "asset_tokens": {
+        "url": "https://images.unsplash.com/photo-1639781360241-dadbe5c28dce?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1ODh8MHwxfHNlYXJjaHwyfHxldGhlcmV1bSUyMGNvaW4lMjAzZCUyMHJlbmRlcnxlbnwwfHx8fDE3NzEzMjE3Njl8MA&ixlib=rb-4.1.0&q=85",
+        "alt": "Blue crypto tokens stacked",
+        "usage": "Wallet/Assets section"
+      }
+    },
+    "icons": {
+      "library": "lucide-react",
+      "preferred": ["ShieldCheck", "ScanEye", "Lock", "AlertTriangle", "Wallet", "Activity", "Zap", "Server"]
+    }
+  },
+  "instructions_to_main_agent": {
+    "general": "You are building a high-trust, high-tech security platform. Do not make it look like a toy. Use the 'Electric Fortress' theme. Prioritize dark mode, high contrast, and clear data visualization.",
+    "layout": "Avoid centering everything. Use the 'Tetris' grid for marketing and 'High Density' grid for the dashboard. Use 'Grid Borders' to separate sections.",
+    "components": "Use Shadcn UI components but override the styles with the 'Electric Fortress' theme. Do not use default Shadcn cards; use the 'Glass' or 'Grid' card styles defined above.",
+    "charts": "Use Recharts. Style the tooltips to be glassmorphic. Use the primary (Green) and danger (Red) colors for data series.",
+    "animations": "Add micro-interactions to every button and card. Use 'framer-motion' for page transitions and the 'Tracing Beam' effect.",
+    "accessibility": "Ensure all text has sufficient contrast against the dark background. Use 'aria-label' for all icon buttons."
+  },
+  "UNIVERSAL_GUIDELINES_FOR_MAIN_AGENT": [
+    "You tend to converge toward generic, 'on distribution' outputs. In frontend design, this creates what users call the 'AI slop' aesthetic. Avoid this: make creative, distinctive frontends that surprise and delight.",
+    "Dark colors look good when used independently without gradients. DO NOT use dark colors as gradients",
+    "Don't make generic centered layouts, simplistic gradients, and uniform styling.",
+    "Create depth through layered design elements with z-index hierarchy",
+    "Use glass-morphism effects with backdrop filters (12-24px blur)",
+    "You MUST NOT apply universal transition. Eg: `transition: all`. This results in breaking transforms. Always add transitions for specific interactive elements like button, input excluding transforms",
+    "You MUST NOT center align the app container, ie do not add `.App { text-align: center; }` in the css file. This disrupts the human natural reading flow of text",
+    "Always use modern button styles like pill-shaped, or sharp button with interaction animations & color relevant to the app style",
+    "NEVER: use AI assistant Emoji characters like 🤖🧠💭💡🔮🎯📚🎭🎬🎪🎉🎊🎁🎀🎂🍰🎈🎨🎰💰💵💳🏦💎🪙💸🤑📊📈📉💹🔢🏆🥇 etc for icons.",
+    "Every interaction needs micro-animations - hover states, transitions, parallax effects, and entrance animations. Static = dead.",
+    "Use 2-3x more spacing than feels comfortable. Cramped designs look cheap.",
+    "Subtle grain textures, noise overlays, custom cursors, selection states, and loading animations: separates good from extraordinary.",
+    "Main agent relies on these image URLs. Missing categories (especially sponsor logos) = main agent will use placeholder text which is FORBIDDEN",
+    "Prioritize using pre-existing components from src/components/ui when applicable",
+    "Create new components that match the style and conventions of existing components when needed",
+    "Examine existing components to understand the project's component patterns before creating new ones",
+    "Components MUST use named exports (export const ComponentName = ...)",
+    "Pages MUST use default exports (export default function PageName() {...})",
+    "Use `sonner` for toasts. Sonner component are located in `/app/src/components/ui/sonner.tsx`"
+  ]
+}
