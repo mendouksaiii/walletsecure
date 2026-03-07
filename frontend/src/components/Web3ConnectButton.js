@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Button } from './ui/button';
 import { toast } from 'sonner';
 
-const BACKEND_URL = process.env.REACT_APP_API_URL || 'https://walletsecure-api.onrender.com';
+const BACKEND_URL = 'https://walletsecure-api.onrender.com';
 
 export default function Web3ConnectButton() {
     const [address, setAddress] = useState(null);
