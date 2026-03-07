@@ -62,7 +62,12 @@ export default function Web3ConnectButton() {
             toast.success('Successfully authenticated!');
         } catch (error) {
             console.error('Login Error:', error);
-            toast.error(error.message || 'Failed to authenticate wallet.');
+            const msg = error.message || '';
+            if (msg.toLowerCase().includes('fetch') || msg.toLowerCase().includes('network')) {
+                toast.error('Backend is starting up — please wait 30 seconds and try again.', { duration: 8000 });
+            } else {
+                toast.error(msg || 'Failed to authenticate wallet.');
+            }
         } finally {
             setIsLoggingIn(false);
         }

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
@@ -33,6 +33,11 @@ function NavLink({ href, onClick, children }) {
 function AppContent() {
     const location = useLocation();
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+    // Silently wake up the Render backend on app load (free tier goes to sleep)
+    useEffect(() => {
+        fetch('https://walletsecure-api.onrender.com/api/health').catch(() => { });
+    }, []);
 
     return (
         <div className="relative min-h-screen bg-background font-sans selection:bg-brand-primary/30 flex flex-col overflow-x-hidden text-foreground-DEFAULT">
