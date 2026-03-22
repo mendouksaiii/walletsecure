@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WalletSecure — Hackathon Presentation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Outfit:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg-void: #050505;
+            --bg-card: #0f0f0f;
+            --green: #00ff88;
+            --red: #ff3333;
+            --amber: #ffaa00;
+            --cyan: #00eeff;
+            --text-primary: #ffffff;
+            --text-secondary: #999999;
+            --text-muted: #444444;
+            --border: #222222;
+            --font-display: 'Outfit', sans-serif;
+            --font-body: 'Space Mono', monospace;
+            --shadow-dist: 8px;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--bg-void);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            line-height: 1.5;
+            background-image: 
+                linear-gradient(rgba(255, 51, 51, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 51, 51, 0.03) 1px, transparent 1px);
+            background-size: 30px 30px;
+        }
+
+        /* ─── 3D Utilities ─── */
+        .block-3d {
+            background: var(--bg-card);
+            border: 2px solid var(--text-muted);
+            box-shadow: var(--shadow-dist) var(--shadow-dist) 0px 0px rgba(255, 51, 51, 0.2);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .block-3d:hover {
+            transform: translate(calc(var(--shadow-dist) * -0.2), calc(var(--shadow-dist) * -0.2));
+            box-shadow: calc(var(--shadow-dist) * 1.2) calc(var(--shadow-dist) * 1.2) 0px 0px rgba(255, 51, 51, 0.4);
+            border-color: var(--red);
+        }
+
+        /* ─── Navigation ─── */
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 40px;
+            background: rgba(5, 5, 5, 0.9);
+            border-bottom: 2px solid var(--border);
+            backdrop-filter: blur(10px);
+        }
+
+        nav .logo {
+            font-family: var(--font-display);
+            font-weight: 900;
+            font-size: 20px;
+            color: var(--text-primary);
+            letter-spacing: 2px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        nav .logo span { color: var(--red); }
+
+        nav .slide-dots {
+            display: flex;
+            gap: 12px;
+        }
+
+        nav .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--border);
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        nav .dot.active {
+            background: var(--red);
+            box-shadow: 0 0 10px var(--red);
+            transform: scale(1.3);
+        }
+
+        nav .slide-counter {
+            font-size: 16px;
+            color: var(--text-secondary);
+        }
+
+        /* ─── Slides ─── */
+        .slide {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 120px 100px 80px;
+            position: relative;
+        }
+
+        .slide-label {
+            font-size: 14px;
+            text-transform: uppercase;
+            color: var(--red);
+            letter-spacing: 4px;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        h1 {
+            font-family: var(--font-display);
+            font-size: clamp(40px, 6vw, 72px);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 30px;
+            letter-spacing: -1px;
+        }
+
+        h2 {
+            font-family: var(--font-display);
+            font-size: clamp(28px, 4vw, 42px);
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 24px;
+            color: var(--text-primary);
+        }
+
+        h3 {
+            font-family: var(--font-display);
+            font-size: 20px;
+            margin-bottom: 12px;
+            color: var(--text-primary);
+        }
+
+        .subtitle {
+            font-size: 24px;
+            color: var(--text-secondary);
+            max-width: 900px;
+            line-height: 1.4;
+        }
+
+        .highlight-red { color: var(--red); }
+        .highlight-green { color: var(--green); }
+        .highlight-cyan { color: var(--cyan); }
+
+        /* ─── Title Slide ─── */
+        .title-badge {
+            display: inline-block;
+            background: rgba(255, 51, 51, 0.1);
+            color: var(--red);
+            padding: 8px 16px;
+            font-size: 14px;
+            text-transform: uppercase;
+            font-weight: bold;
+            border: 1px solid var(--red);
+            border-radius: 4px;
+            margin-bottom: 32px;
+            letter-spacing: 2px;
+        }
+
+        .title-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-top: 60px;
+            font-size: 16px;
+            color: var(--text-secondary);
+            border-top: 1px solid var(--border);
+            padding-top: 40px;
+        }
+
+        .title-meta span { display: flex; flex-direction: column; gap: 8px; }
+        .title-meta .val { color: var(--text-primary); font-size: 20px; font-weight: bold; font-family: var(--font-display); }
+
+        /* ─── Grid Layouts ─── */
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 40px; }
+        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-top: 40px; }
+
+        .card { padding: 40px; border-radius: 8px; }
+        .card .card-icon {
+            font-size: 36px;
+            margin-bottom: 20px;
+            display: inline-flex;
+            width: 64px; height: 64px;
+            align-items: center; justify-content: center;
+            background: rgba(255, 51, 51, 0.1);
+            color: var(--red);
+            border-radius: 12px;
+        }
+
+        .card p { color: var(--text-secondary); font-size: 16px; line-height: 1.6; }
+
+        /* ─── Threat Box ─── */
+        .threat-box {
+            padding: 30px;
+            background: rgba(255, 51, 51, 0.05);
+            border-left: 4px solid var(--red);
+            margin-bottom: 20px;
+            border-radius: 0 8px 8px 0;
+        }
+        .threat-box h4 {
+            font-family: var(--font-display);
+            font-size: 20px;
+            color: var(--red);
+            margin-bottom: 10px;
+            display: flex; align-items: center; gap: 10px;
+        }
+        .threat-box p { font-size: 18px; color: var(--text-secondary); }
+
+        .secure-box {
+            padding: 30px;
+            background: rgba(0, 255, 136, 0.05);
+            border-left: 4px solid var(--green);
+            margin-bottom: 20px;
+            border-radius: 0 8px 8px 0;
+        }
+        .secure-box h4 {
+            font-family: var(--font-display);
+            font-size: 20px;
+            color: var(--green);
+            margin-bottom: 10px;
+            display: flex; align-items: center; gap: 10px;
+        }
+        .secure-box p { font-size: 18px; color: var(--text-secondary); }
+
+        /* ─── Big Numbers ─── */
+        .big-stat { text-align: center; padding: 50px 30px; }
+        .big-stat .number {
+            font-family: var(--font-display);
+            font-size: 72px;
+            font-weight: 900;
+            line-height: 1;
+            margin-bottom: 15px;
+            color: var(--text-primary);
+        }
+        .big-stat .desc {
+            font-size: 16px;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            letter-spacing: 2px;
+        }
+
+        /* ─── Scroll animations ─── */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .fade-up.visible { opacity: 1; transform: translateY(0); }
+        .delay-1 { transition-delay: 0.1s; }
+        .delay-2 { transition-delay: 0.2s; }
+
+    </style>
+</head>
+
+<body>
+    <nav>
+        <div class="logo">🛡️ WALLET<span>SECURE</span></div>
+        <div class="slide-dots" id="dots"></div>
+        <div class="slide-counter" id="counter">1 / 6</div>
+    </nav>
+
+    <!-- ═══════════ SLIDE 1: TITLE ═══════════ -->
+    <section class="slide" id="slide-title">
+        <div class="fade-up">
+            <div class="title-badge">Synthesis Hackathon Submission</div>
+            <h1>Next-Gen Web3 <br><span class="highlight-red">Threat Detection</span></h1>
+            <p class="subtitle">
+                Real-time security scanning, deep contract analysis, and proactive wallet monitoring across 6 EVM chains. Stop malicious transactions before they happen.
+            </p>
+            <div class="title-meta">
+                <span>Core Feature <span class="val highlight-red">Unified Approval Management</span></span>
+                <span>Supported Chains <span class="val">Ethereum, Base, Arbtrium, Polygon +2</span></span>
+                <span>Status <span class="val highlight-green">Live MVP</span></span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════ SLIDE 2: THE PROBLEM ═══════════ -->
+    <section class="slide" id="slide-problem">
+        <div class="fade-up">
+            <div class="slide-label">01 // The Problem</div>
+            <h2>Web3 users are <span class="highlight-red">flying blind.</span></h2>
+            <p class="subtitle" style="margin-bottom: 40px;">Users blindly approve infinite token spends without understanding smart contract internals, leading to billions in drained wallets.</p>
+        </div>
+
+        <div class="grid-2">
+            <div class="threat-box fade-up delay-1">
+                <h4>⚠️ Infinite Approvals</h4>
+                <p>Over 80% of DApp interactions request unlimited spending allowances, leaving wallets permanently exposed if the protocol is later compromised.</p>
+            </div>
+            <div class="threat-box fade-up delay-2">
+                <h4>🎣 Phishing Contracts</h4>
+                <p>Malicious actors deploy proxy contracts that look identical to legitimate ones, tricking users into signing malicious payloads.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════ SLIDE 3: OUR SOLUTION ═══════════ -->
+    <section class="slide" id="slide-solution">
+        <div class="fade-up">
+            <div class="slide-label">02 // The Solution</div>
+            <h2>Proactive, human-readable <span class="highlight-green">security context.</span></h2>
+        </div>
+        <div class="grid-3">
+            <div class="card block-3d fade-up delay-1">
+                <span class="card-icon">🔍</span>
+                <h3>Deep Contract Analysis</h3>
+                <p>We decompile and analyze target contracts in real-time, checking for proxy patterns, hardcoded ownership risks, and malicious opcodes.</p>
+            </div>
+            <div class="card block-3d fade-up delay-2">
+                <span class="card-icon">🛡️</span>
+                <h3>Unified Approvals</h3>
+                <p>A single dashboard to view and revoke token approvals across 6 major EVM chains simultaneously. One click to secure your assets.</p>
+            </div>
+            <div class="card block-3d fade-up delay-1">
+                <span class="card-icon">⚡</span>
+                <h3>Threat Intelligence</h3>
+                <p>Live integration with major Web3 security databases prevents interaction with known phishing addresses and drainers.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════ SLIDE 4: THE DASHBOARD ═══════════ -->
+    <section class="slide" id="slide-dashboard">
+        <div class="fade-up">
+            <div class="slide-label">03 // The Interface</div>
+            <h2>Security that's actually <span class="highlight-cyan">usable.</span></h2>
+            <p class="subtitle" style="margin-bottom: 40px;">No more parsing hex data. WalletSecure translates blockchain complexity into actionable security intelligence.</p>
+        </div>
+
+        <div class="grid-2">
+            <div class="secure-box fade-up delay-1">
+                <h4>✅ Clean UI/UX</h4>
+                <p>A polished, React-based dashboard built with Tailwind CSS. High contrast, clear indicators, and zero clutter.</p>
+            </div>
+            <div class="secure-box fade-up delay-2">
+                <h4>✅ Auto-Remediation</h4>
+                <p>When a threat is detected, the UI surfaces a single "Revoke All Risks" button, batching revocation transactions for maximum speed.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════ SLIDE 5: BY THE NUMBERS ═══════════ -->
+    <section class="slide" id="slide-numbers">
+        <div class="fade-up">
+            <div class="slide-label">04 // Traction & Scale</div>
+            <h2>Built for <span class="highlight-red">multi-chain</span> reality.</h2>
+        </div>
+        <div class="grid-3">
+            <div class="card big-stat block-3d fade-up delay-1">
+                <div class="number highlight-red">6</div>
+                <div class="desc">EVM Chains Supported</div>
+            </div>
+            <div class="card big-stat block-3d fade-up delay-2">
+                <div class="number highlight-cyan">1 Click</div>
+                <div class="desc">To Revoke Approvals</div>
+            </div>
+            <div class="card big-stat block-3d fade-up delay-1">
+                <div class="number highlight-green">24/7</div>
+                <div class="desc">Threat Intelligence</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════ SLIDE 6: CLOSING ═══════════ -->
+    <section class="slide" id="slide-close">
+        <div class="fade-up">
+            <div class="slide-label">05 // Conclusion</div>
+            <h2>Let's make Web3 <span class="highlight-green">safe for everyone.</span></h2>
+            <p class="subtitle" style="margin-bottom: 30px;">
+                WalletSecure bridges the gap between complex blockchain logs and standard consumer protection.
+            </p>
+            <p class="subtitle">
+                Thank you to the Synthesis Hackathon organizers and judges!
+            </p>
+
+            <div class="title-meta" style="margin-top: 60px;">
+                <span>Track <span class="val highlight-red">Open Track</span></span>
+                <span>Stack <span class="val">React, Node.js, Ethers.js</span></span>
+                <span>Repo <span class="val">mendouksaiii/walletsecure</span></span>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        const slides = document.querySelectorAll('.slide');
+        const dotsContainer = document.getElementById('dots');
+        const counter = document.getElementById('counter');
+
+        slides.forEach((_, i) => {
+            const dot = document.createElement('button');
+            dot.classList.add('dot');
+            if (i === 0) dot.classList.add('active');
+            dot.addEventListener('click', () => slides[i].scrollIntoView({ behavior: 'smooth' }));
+            dotsContainer.appendChild(dot);
+        });
+
+        const dots = document.querySelectorAll('.dot');
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const index = Array.from(slides).indexOf(entry.target);
+                    dots.forEach((d, i) => d.classList.toggle('active', i === index));
+                    counter.textContent = `${index + 1} / ${slides.length}`;
+                }
+            });
+        }, { threshold: 0.5 });
+        slides.forEach(s => observer.observe(s));
+
+        const fadeObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, { threshold: 0.15 });
+        document.querySelectorAll('.fade-up').forEach(el => fadeObserver.observe(el));
+
+        let currentSlide = 0;
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowDown' || e.key === ' ' || e.key === 'ArrowRight') {
+                e.preventDefault();
+                currentSlide = Math.min(currentSlide + 1, slides.length - 1);
+                slides[currentSlide].scrollIntoView({ behavior: 'smooth' });
+            } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+                e.preventDefault();
+                currentSlide = Math.max(currentSlide - 0, 0);
+                slides[currentSlide].scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+
+        const scrollObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    currentSlide = Array.from(slides).indexOf(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+        slides.forEach(s => scrollObserver.observe(s));
+    </script>
+</body>
+</html>

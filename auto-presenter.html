@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>WalletSecure Auto-Presenter</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&family=Space+Mono&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-void: #050505;
+            --bg-card: #0f0f0f;
+            --green: #00ff88;
+            --red: #ff3333;
+            --amber: #ffaa00;
+            --cyan: #00eeff;
+            --text-primary: #ffffff;
+            --text-muted: #555555;
+            --border: #222222;
+        }
+
+        body, html {
+            margin: 0; padding: 0; width: 100%; height: 100%;
+            overflow: hidden; background: var(--bg-void);
+            color: var(--text-primary); font-family: 'Space Mono', monospace;
+            background-image: linear-gradient(rgba(255, 51, 51, 0.03) 1px, transparent 1px),
+                              linear-gradient(90deg, rgba(255, 51, 51, 0.03) 1px, transparent 1px);
+            background-size: 30px 30px;
+        }
+
+        iframe {
+            width: 100%; height: 100%; border: none;
+            position: absolute; top: 0; left: 0;
+            opacity: 0; transition: opacity 0.5s ease;
+        }
+
+        iframe.active { opacity: 1; z-index: 10; }
+
+        #overlay {
+            position: absolute; z-index: 100; top: 0; left: 0;
+            width: 100%; height: 100%; background: rgba(5, 5, 5, 0.95);
+            display: flex; align-items: center; justify-content: center; text-align: center;
+        }
+
+        #overlay-content {
+            max-width: 800px; padding: 40px; background: var(--bg-card);
+            border: 2px solid var(--text-muted); box-shadow: 8px 8px 0px rgba(255, 51, 51, 0.2);
+        }
+
+        h1 { color: var(--red); margin-top: 0; font-family: 'Outfit', sans-serif; font-size: 32px; font-weight: 900; }
+        p { color: #aaaaaa; font-size: 20px; line-height: 1.4; margin-bottom: 30px; }
+
+        .btn {
+            padding: 16px 32px; font-size: 16px; cursor: pointer; color: var(--bg-void);
+            background: var(--red); border: none; font-family: 'Outfit', sans-serif;
+            text-transform: uppercase; font-weight: bold; border-radius: 4px;
+            box-shadow: 0 0 20px rgba(255, 51, 51, 0.3); transition: all 0.2s;
+        }
+
+        .btn:hover { transform: scale(1.05); box-shadow: 0 0 30px rgba(255, 51, 51, 0.6); }
+
+        #captions {
+            position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%);
+            z-index: 50; background: rgba(5, 5, 5, 0.95); border-left: 4px solid var(--red);
+            color: var(--text-primary); padding: 20px 40px; font-size: 24px;
+            text-align: center; max-width: 80%; line-height: 1.4; opacity: 0;
+            transition: opacity 0.2s; font-family: 'Space Mono', monospace; font-weight: bold;
+        }
+        #captions.visible { opacity: 1; }
+    </style>
+</head>
+<body>
+    <iframe id="deck" src="presentation.html" class="active"></iframe>
+    <div id="captions"></div>
+    <div id="overlay">
+        <div id="overlay-content">
+            <h1>🛡️ Automated Video Presenter</h1>
+            <p>I will automatically drive the presentation and read the voiceover script out loud.</p>
+            <p style="color: #fff;">1. Turn up volume.<br>2. Start screen recorder.<br>3. Click Play.</p>
+            <button class="btn" onclick="start()">▶ Start Presentation</button>
+        </div>
+    </div>
+
+    <script>
+        const script = [
+            { slide: "slide-title", text: "Welcome to WalletSecure. The Web3 threat intelligence platform that stops malicious transactions before they happen." },
+            { slide: "slide-problem", text: "The problem is simple: Web3 users are flying blind. Over 80 percent of DApp interactions request unlimited spending allowances." },
+            { slide: "slide-problem", text: "When you sign a transaction, you're looking at a hex string, not human-readable context. Malicious actors exploit this with phishing contracts that mimic legitimate protocols." },
+            { slide: "slide-solution", text: "Our solution provides proactive, human-readable security context. First: Deep Contract Analysis. We decompile and analyze target contracts in real-time." },
+            { slide: "slide-solution", text: "Second: Threat Intelligence. We integrate live with major Web3 security databases to intercept interactions with known drainers." },
+            { slide: "slide-dashboard", text: "And we wrap this all in an interface that is actually usable. A clean React dashboard with a unified approvals manager." },
+            { slide: "slide-dashboard", text: "Instead of revoking allowances one by one across different explorers, our auto-remediation feature lets you batch-revoke all detected risks with a single click." },
+            { slide: "slide-numbers", text: "WalletSecure supports six EVM chains out of the box, offering 24/7 scanning and one-click remediation." },
+            { slide: "slide-close", text: "It's time to bridge the gap between complex blockchain logs and standard consumer protection. WalletSecure is live on Github. Thank you." }
+        ];
+
+        let currentIdx = 0;
+
+        function speakNext() {
+            if (currentIdx >= script.length) {
+                document.getElementById('captions').classList.remove('visible');
+                return;
+            }
+
+            const step = script[currentIdx];
+            if (step.slide) document.getElementById('deck').src = "presentation.html#" + step.slide;
+
+            const captions = document.getElementById('captions');
+            captions.innerText = step.text; captions.classList.add('visible');
+
+            const u = new SpeechSynthesisUtterance(step.text);
+            u.rate = 1.0; u.pitch = 1.0;
+
+            const voices = window.speechSynthesis.getVoices();
+            const preferred = voices.find(v => v.name.includes('Microsoft Mark') || v.name.includes('Google US English') || (v.lang.startsWith('en') && v.name.includes('Natural')));
+            if (preferred) u.voice = preferred;
+
+            u.onend = () => {
+                currentIdx++; captions.classList.remove('visible');
+                setTimeout(speakNext, 800);
+            };
+
+            u.onerror = () => { setTimeout(() => { currentIdx++; speakNext(); }, 4000); };
+            window.speechSynthesis.speak(u);
+        }
+
+        function start() {
+            window.speechSynthesis.getVoices();
+            document.getElementById('overlay').style.opacity = '0';
+            setTimeout(() => {
+                document.getElementById('overlay').style.display = 'none';
+                setTimeout(speakNext, 1000);
+            }, 500);
+        }
+    </script>
+</body>
+</html>
